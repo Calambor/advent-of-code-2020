@@ -6,20 +6,12 @@ fun main() {
 
     val input = downloadInput(5)
 
-    println(pow2(5))
-    println(pow2(2))
-    println(pow2(3))
-
     var high = 0
     var prev: Int? = null
 
     val exists = input.map { pass ->
-        val id = pass.map { if (it == 'B' || it == 'R') 1 else 0 }.reversed().reduceIndexed { index, acc, i ->
-            if (i == 0) {
-                acc
-            } else {
-                acc + pow2(index)
-            }
+        val id = pass.map { if (it == 'B' || it == 'R') 1 else 0 }.reduceIndexed { index, acc, i ->
+            acc.shl(1) + i
         }
         if (id > high) {
             high = id
@@ -29,21 +21,12 @@ fun main() {
         id
     }.sorted()
 
+    println("Highest id: $high")
+
     exists.map {
         if (prev != null && it - prev!! == 2) {
-            println("Found: ${prev!! + 1}")
+            println("My seat: ${prev!! + 1}")
         }
         prev = it
     }
-
-    println(high)
-
-}
-
-fun pow2(exp: Int): Int {
-    var acc = 1
-    (1..exp).forEach {
-        acc *= 2
-    }
-    return acc
 }
