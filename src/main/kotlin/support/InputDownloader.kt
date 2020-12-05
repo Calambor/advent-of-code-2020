@@ -23,5 +23,12 @@ public fun downloadInput(day: Int, testCase: Int? = null): List<String> {
         }
     }
 
-    return file.readLines()
+    val result = file.readLines()
+
+    result.take(5).forEach { println(it) }
+
+    println("Input size: ${result.size}")
+    println("------------")
+
+    return result
 }
